@@ -1,13 +1,6 @@
 package med.voll.api.domain.medico;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +19,9 @@ public class Medico {
     private Long id;
     private String nome;
     private String email;
+
     private String telefone;
+
     private String crm;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +29,7 @@ public class Medico {
 
     @Embedded
     private Endereco endereco;
+
     private Boolean ativo;
 
     public Medico(DadosCadastroMedico dados) {
@@ -42,8 +38,8 @@ public class Medico {
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.crm = dados.crm();
-        this.endereco = new Endereco(dados.endereco());
         this.especialidade = dados.especialidade();
+        this.endereco = new Endereco(dados.endereco());
     }
 
     public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
@@ -56,6 +52,7 @@ public class Medico {
         if (dados.endereco() != null) {
             this.endereco.atualizarInformacoes(dados.endereco());
         }
+
     }
 
     public void excluir() {
